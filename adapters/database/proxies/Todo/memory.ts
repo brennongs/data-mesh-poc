@@ -66,13 +66,19 @@ implements Contract {
     return this.state.todos[index]
   }
 
-  async delete(id?: string | undefined): Promise<boolean> {
-    if (!id) {
+  async delete(ids?: string[] | string | undefined): Promise<boolean> {
+    if (!ids) {
       this.emit(() => ({ todos: [] }))
     } else {
-      this.emit(({ todos }) => ({
-        todos: todos.filter((todo) => todo.id !== id)
-      }))
+      if (ids.length) {
+        this.emit(({ todos }) => ({
+          todos: todos.filter((todo) => !ids.includes(todo.id))
+        }))
+      } else {
+        this.emit(({ todos }) => ({
+          todos: todos.filter((todo) => todo.id !== ids)
+        }))
+      }
     }
   
     return true

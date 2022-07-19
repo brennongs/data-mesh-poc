@@ -71,5 +71,21 @@ describe('Proxies:Todo:Memory', () => {
     expect((await PROXY.search({ title: 'test' })).length).toBe(3)
     expect(await PROXY.delete()).toBe(true)
     expect((await PROXY.search({ title: 'test' })).length).toBe(0)
+
+    await Promise.all([1,2,3].map((int) => PROXY.create({
+      title: `test-${int}`,
+      description: `testing: todo number ${int}`
+    })))
+    await PROXY.create({
+      title: 'control',
+      description: 'this one should stay'
+    })
+
+    expect((await PROXY.search()).length).toBe(4)
+    
+    const todosToDelete = await PROXY.search({ title: 'test' })
+
+    expect(await PROXY.delete(todosToDelete.map(({ id }) => id))).toBe(true)
+    expect((await PROXY.search()).length).toBe(1)
   });
 });

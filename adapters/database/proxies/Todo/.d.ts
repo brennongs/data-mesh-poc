@@ -6,5 +6,5 @@ export interface Contract {
   ): Promise<Todo[]>;
   create(todo: Pick<Todo, 'title' | 'description'>): Promise<Todo>;
   update(id: Todo['id'], params: Partial<Todo>): Promise<Todo>;
-  delete(id?: Todo['id']): Promise<boolean>;
+  delete(ids?: Todo['id'] | Todo['id'][]): Promise<boolean>;
 }
