@@ -1,5 +1,5 @@
-import { Observable } from '~/lib/utils/observable';
 import { Todo, TodoStatus } from '~/lib/models/todo.d';
+import { Observable } from '~/lib/utils/observable';
 
 import { Contract } from './.d';
 
@@ -10,9 +10,10 @@ interface State {
 class MemoryTodoProxy
 extends Observable<State>
 implements Contract {
-  async create(
-    {title, description}: Pick<Todo, 'title' | 'description'>
-  ): Promise<Todo> {
+  async create({
+    title,
+    description
+  }: Pick<Todo, 'title' | 'description'>): Promise<Todo> {
     const now = new Date().toString()
     const todo: Todo = {
       id: String(Math.floor(Math.random() * 10000)),
