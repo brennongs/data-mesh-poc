@@ -2,7 +2,7 @@ import { TodoStatus } from '~/lib/models/todo.d';
 
 import PROXY from './memory';
 
-describe('Proxies:Todo:InMemory', () => {
+describe('Proxies:Todo:Memory', () => {
   beforeEach(async () => {
     await PROXY.delete()
   })
@@ -23,7 +23,7 @@ describe('Proxies:Todo:InMemory', () => {
     expect(result).toHaveProperty('updatedAt');
   });
 
-  it('search, first', async () => {
+  it('search', async () => {
     await Promise.all([1,2,3].map((int) => PROXY.create({
       title: `test-${int}`,
       description: `testing: todo number ${int}`
@@ -35,7 +35,6 @@ describe('Proxies:Todo:InMemory', () => {
       .toBe(1);
     expect((await PROXY.search({ title: 'test', description: '4' })).length)
       .toBe(0);
-    expect(await PROXY.first({ title: 'test' })).toBeTruthy();
   });
 
   it('update', async () => {

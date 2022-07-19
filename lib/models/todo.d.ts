@@ -1,4 +1,4 @@
-enum TodoStatus {
+export const enum TodoStatus {
   NOT_STARTED = 'not started',
   IN_PROGRESS = 'in progress',
   COMPLETE = 'complete'

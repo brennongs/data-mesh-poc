@@ -1,8 +1,9 @@
-import { Todo } from '~/lib/models'
+import { Todo } from '~/lib/models/todo.d'
 
-export default interface TodoProxy {
-  search(params?: Partial<Todo>): Promise<Todo[]>;
-  first(params: Partial<Todo>): Promise<Todo | null>;
+export interface Contract {
+  search(
+    params?: Partial<Pick<Todo, 'title' | 'description' | 'status' | 'id'>>
+  ): Promise<Todo[]>;
   create(todo: Pick<Todo, 'title' | 'description'>): Promise<Todo>;
   update(id: Todo['id'], params: Partial<Todo>): Promise<Todo>;
   delete(id?: Todo['id']): Promise<boolean>;
